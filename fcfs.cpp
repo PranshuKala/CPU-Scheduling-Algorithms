@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
 class process
 {
 public:
+    int pid;
     int burst_time;
     int arrival_time = 0;
 };
@@ -32,6 +32,20 @@ void computefcfs(process parray[], int n)
     {
         totaltat += tat[i];
     }
+    cout << "Process ID \t Burst Time\t Waiting Time" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << parray[i].pid << " \t\t " << parray[i].burst_time << " \t\t " << wt[i] << " \t\t "
+             << "\n";
+    }
+    cout << "turn around time" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << tat[i] << " \t\t "
+             << "\n";
+    }
+
+    cout << "\n";
     cout << "avg wt :" << (float)totalwt / (float)n << "\n";
     cout << "avg tat :" << (float)totaltat / (float)n;
 }
@@ -44,6 +58,8 @@ int main()
     process parray[n];
     for (int i = 0; i < n; i++)
     {
+        cout << "Enter process id of " << i + 1 << " process :";
+        cin >> parray[i].pid;
         cout << "Enter burst time of " << i + 1 << " process :";
         cin >> parray[i].burst_time;
     }

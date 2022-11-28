@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
 class process
 {
-  public:
+public:
+    int pid;
     int burst_time;
     int arrival_time = 0;
     int priority;
@@ -11,6 +11,11 @@ class process
 
 void computepriority(process parray[], int n)
 {
+    int burst_time_copy[n];
+    for (int i = 0; i < n; i++)
+    {
+        burst_time_copy[i] = parray[i].burst_time;
+    }
     int min;
     for (int i = 0; i < n; i++)
     {
@@ -24,11 +29,7 @@ void computepriority(process parray[], int n)
         }
         swap(parray[min].burst_time, parray[i].burst_time);
     }
-    for (int i = 0; i < n; i++)
-    {
-        cout<<parray[i].burst_time<<" ";
-    }
-    
+
     int wt[n];
     int tat[n];
     wt[0] = 0;
@@ -50,6 +51,20 @@ void computepriority(process parray[], int n)
     {
         totaltat += tat[i];
     }
+
+    cout << " Process ID \t Priority \t Burst Time" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << parray[i].pid << " \t\t " << parray[i].priority << " \t\t " << burst_time_copy[i] << " \t\t "
+             << "\n";
+    }
+    cout << "turn around time \t Waiting time" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << tat[i] << " \t\t " << wt[i] << "\t\t"
+             << "\n";
+    }
+
     cout << "avg wt :" << (float)totalwt / (float)n << "\n";
     cout << "avg tat :" << (float)totaltat / (float)n;
 }
@@ -62,6 +77,8 @@ int main()
     process parray[n];
     for (int i = 0; i < n; i++)
     {
+        cout << "Enter process id of " << i + 1 << " process :";
+        cin >> parray[i].pid;
         cout << "Enter burst time of " << i + 1 << " process :";
         cin >> parray[i].burst_time;
         cout << "Enter priority of " << i + 1 << " process :";
